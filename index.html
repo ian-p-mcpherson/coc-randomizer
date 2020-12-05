@@ -12,6 +12,12 @@
 
 <script>
 
+//////////////////////////////////////////
+//
+// Gun Data
+//
+//////////////////////////////////////////
+
 // Rarity Summary:
 // F - Found everywhere in nearly unlimited quantities (Ex. 9x18, 9x19)
 // E - Found commonly on trash stalkers (Ex. Buckshot, 9x19)
@@ -22,7 +28,7 @@
 // S - Found rarely on elite stalkers, hard to find in merchants (Ex. 6.8x43, .50 Beowulf)
 
 // Tier Summary:
-// F - Very Poor effectiveness, many headshots required even on unarmored stalkers
+// F - Very Poor effectiveness, 2+ headshots tyo kill unarmored stalkers, bad weapon selection
 // E - Poor effectiveness, two to three headshots required on unarmored stalkers
 // D - Low effectiveness, two to three headshots required on lightly armored stalkers
 // C - Medium effectiveness, one headshot is often enough on lightly armored stalkers
@@ -30,10 +36,20 @@
 // A - Very High effectiveness, one or two headshots elite stalkers most of the time
 // S - Highest effectivness, one-shot any stalker on headshots without fail
 
+tierToNum = {
+	"F" : 1,
+	"E" : 2,
+	"D" : 3,
+	"C" : 4,
+	"B" : 5,
+	"A" : 6,
+	"S" : 7
+}
+
 ammoTypes = {
 	"slug" : {
 		"name" : "Slug",
-		"tier" : "C",
+		"tier" : "D",
 		"rarity" : "E",
 		"subtypes" : {
 			"12x76 Slug" : {
@@ -43,7 +59,7 @@ ammoTypes = {
 	},
 	"buckshot" : {
 		"name" : "Buckshot",
-		"tier" : "B",
+		"tier" : "C",
 		"rarity" : "E",
 		"subtypes" : {
 			"12x70 Buckshot" : {
@@ -53,7 +69,7 @@ ammoTypes = {
 	},
 	"9x39" : {
 		"name" : "9x39",
-		"tier" : "A",
+		"tier" : "B",
 		"rarity" : "A",
 		"subtypes" : {
 			"9x39 SP-5" : {
@@ -79,7 +95,7 @@ ammoTypes = {
 	},
 	"762x54" : {
 		"name" : "7.62x54",
-		"tier" : "S",
+		"tier" : "A",
 		"rarity" : "A",
 		"subtypes" : {
 			"7.62x54 FMJ" : {
@@ -239,7 +255,7 @@ ammoTypes = {
 	},
 	"357magnum" : {
 		"name" : ".357 Magnum",
-		"tier" : "A",
+		"tier" : "B",
 		"rarity" : "B",
 		"subtypes" : {
 			".357 Magnum JHP" : {
@@ -252,7 +268,7 @@ ammoTypes = {
 	},
 	"45acp" : {
 		"name" : ".45 ACP",
-		"tier" : "B",
+		"tier" : "C",
 		"rarity" : "D",
 		"subtypes" : {
 			".45 ACP" : {
@@ -265,7 +281,7 @@ ammoTypes = {
 	},
 	"762x25" : {
 		"name" : "7.62x25",
-		"tier" : "E",
+		"tier" : "F",
 		"rarity" : "C",
 		"subtypes" : {
 			"7.62x25 PS" : {
@@ -278,7 +294,7 @@ ammoTypes = {
 	},
 	"57x28" : {
 		"name" : "5.7x28",
-		"tier" : "F",
+		"tier" : "D",
 		"rarity" : "C",
 		"subtypes" : {
 			"5.7x28 SS190" : {
@@ -304,7 +320,7 @@ ammoTypes = {
 	},
 	"9x19" : {
 		"name" : "9x19",
-		"tier" : "D",
+		"tier" : "F",
 		"rarity" : "F",
 		"subtypes" : {
 			"9x19 JHP" : {
@@ -317,8 +333,8 @@ ammoTypes = {
 	},
 	"9x18" : {
 		"name" : "9x18",
-		"tier" : "F",
-		"rarity" : "F",
+		"tier" : "D",
+		"rarity" : "D",
 		"subtypes" : {
 			"9x18 SP-7" : {
 				"img" : "img/9x18_sp7.png"
@@ -330,12 +346,23 @@ ammoTypes = {
 	},
 }
 
-
+//////////////////////////////////////////
+//
+// INIT Functions
+//
+//////////////////////////////////////////
 var rng_seed = 0
 
 function init() {
 	update_rng_seed()
 }
+
+
+//////////////////////////////////////////
+//
+// RNG Functions
+//
+//////////////////////////////////////////
 
 function update_rng_seed() {
 	var seed_display = document.getElementById("seed_display")
@@ -355,11 +382,6 @@ function randomize_seed() {
 	update_rng_seed()
 }
 
-function test() {
-	var ritem = rand_item(ammoTypes)
-	alert(ritem["name"])
-}
-
 // Returns a number from min to max (inclusive)
 function randi(max, min = 0) {
 	return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -371,6 +393,58 @@ function rand_item(dict) {
 	return dict[keys[randi(keys.length - 1)]]
 }
 
+
+//////////////////////////////////////////
+//
+// Generation Functions
+//
+//////////////////////////////////////////
+
+function test() {
+	var test_input1 = document.getElementById("test_input1")
+	var test_input2 = document.getElementById("test_input2")
+	get_ammo_by_tier(test_input1.value,test_input2.value)
+}
+
+function get_ammo_by_tier(tier, comp = "=") {
+	var list = {}
+	var debug_text = ""
+	for (ammoType in ammoTypes) {
+		var data = ammoTypes[ammoType]
+		if(comp == "=") {
+			if(tierToNum[data["tier"]] == tierToNum[tier]) {
+				list[ammoType] = data
+				debug_text = debug_text + data["name"] + "\n"
+			}
+		}
+		else if(comp == ">") {
+			if(tierToNum[data["tier"]] > tierToNum[tier]) {
+				list[ammoType] = data
+				debug_text = debug_text + data["name"] + "\n"
+			}
+		}
+		else if(comp == ">=") {
+			if(tierToNum[data["tier"]] >= tierToNum[tier]) {
+				list[ammoType] = data
+				debug_text = debug_text + data["name"] + "\n"
+			}
+		}
+		else if(comp == "<") {
+			if(tierToNum[data["tier"]] < tierToNum[tier]) {
+				list[ammoType] = data
+				debug_text = debug_text + data["name"] + "\n"
+			}
+		}
+		else if(comp == "<=") {
+			if(tierToNum[data["tier"]] <= tierToNum[tier]) {
+				list[ammoType] = data
+				debug_text = debug_text + data["name"] + "\n"
+			}
+		}
+	}
+	alert(debug_text)
+}
+
 </script>
 
 <body onload="init()">
@@ -379,7 +453,7 @@ function rand_item(dict) {
 		<button onclick="randomize_seed()">Randomize</button><input id="seed_input" type="text" maxlength="32" onchange="update_rng_seed()"/>
 	</div>
 	<div>
-		<button onclick="test()">Test</button>
+		<button onclick="test()">Test</button><input id="test_input1" type="text" maxlength="32"/><input id="test_input2" type="text" maxlength="32"/>
 	</div>
 </body>
 </html>
