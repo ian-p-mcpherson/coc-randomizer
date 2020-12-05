@@ -7,35 +7,210 @@
 	<title>CoC Randomizer</title>
 	<meta name="description" content="CoC Randomizer">
 	<meta name="author" content="ian-p-mcpherson@gmail.com">
+	<script src=http://davidbau.com/encode/seedrandom.js></script>
 </head>
 
 <script>
 
+// Rarity Summary:
+// F - Found everywhere in nearly unlimited quantities (Ex. 9x18, 9x19)
+// E - Found commonly on trash stalkers (Ex. Buckshot, 9x19)
+// D - Found uncommonly on trash stalkers, commonly on normal stalkers (Ex. .45, 5.45x39)
+// C - Found rarely on trash stalkers, commonly on normal stalkers (Ex, 5.56x45)
+// B - Found rarely on normal stalkers, commonly on elite stalkers (Ex. 7.62x39)
+// A - Found uncommonly on elite stalkers (Ex. 7.62x51, 9x39)
+// S - Found rarely on elite stalkers, hard to find in merchants (Ex. 6.8x43, .50 Beowulf)
+
+// Tier Summary:
+// F - Very Poor effectiveness, many headshots required even on unarmored stalkers
+// E - Poor effectiveness, two to three headshots required on unarmored stalkers
+// D - Low effectiveness, two to three headshots required on lightly armored stalkers
+// C - Medium effectiveness, one headshot is often enough on lightly armored stalkers
+// B - High effectiveness, one or two headhsots most normal stalkers
+// A - Very High effectiveness, one or two headshots elite stalkers most of the time
+// S - Highest effectivness, one-shot any stalker on headshots without fail
+
 ammoTypes = {
 	"slug" : {
 		"name" : "Slug",
-		"tier" : "E",
+		"tier" : "C",
 		"rarity" : "E",
 		"subtypes" : {
 			"12x76 Slug" : {
-				"img" : "img/12x76_slug.png"
+				"img" : "img/slug.png"
 			}
 		}
 	},
 	"buckshot" : {
 		"name" : "Buckshot",
-		"tier" : "C",
+		"tier" : "B",
 		"rarity" : "E",
 		"subtypes" : {
 			"12x70 Buckshot" : {
-				"img" : "img/12x70_Buckshot.png"
+				"img" : "img/buckshot.png"
 			}
 		}
 	},
+	"9x39" : {
+		"name" : "9x39",
+		"tier" : "A",
+		"rarity" : "A",
+		"subtypes" : {
+			"9x39 SP-5" : {
+				"img" : "img/9x39_sp5.png"
+			},
+			"9x39 SP-6" : {
+				"img" : "img/9x39_sp6.png"
+			}
+		}
+	},
+	"beowulf" : {
+		"name" : ".50 Beowulf",
+		"tier" : "S",
+		"rarity" : "S",
+		"subtypes" : {
+			".50 Beowulf JFP" : {
+				"img" : "img/beowulf_jhp.png"
+			},
+			".50 Beowulf HP" : {
+				"img" : "img/beowulf_hp.png"
+			}
+		}
+	},
+	"762x54" : {
+		"name" : "7.62x54",
+		"tier" : "S",
+		"rarity" : "A",
+		"subtypes" : {
+			"7.62x54 FMJ" : {
+				"img" : "img/762x54_fmj.png"
+			},
+			"7.62x54 SNB" : {
+				"img" : "img/762x54_snb.png"
+			}
+		}
+	},
+	"338" : {
+		"name" : ".338 Lapua",
+		"tier" : "S",
+		"rarity" : "S",
+		"subtypes" : {
+			".338 Lapua JSP" : {
+				"img" : "img/338_lapua_jsp.png"
+			},
+			".338 Lapua AP" : {
+				"img" : "img/338_lapua_ap.png"
+			}
+		}
+	},
+	"762x51" : {
+		"name" : "7.62x51",
+		"tier" : "A",
+		"rarity" : "A",
+		"subtypes" : {
+			"7.62x51 M80" : {
+				"img" : "img/762x51_m80.png"
+			},
+			"7.62x51 M993" : {
+				"img" : "img/762x51_m993.png"
+			}
+		}
+	},
+	"762x39" : {
+		"name" : "7.62x39",
+		"tier" : "B",
+		"rarity" : "B",
+		"subtypes" : {
+			"7.62x39 BP" : {
+				"img" : "img/762x39_bp.png"
+			},
+			"7.62x39 PS" : {
+				"img" : "img/762x39_ps.png"
+			}
+		}
+	},
+	"68x43" : {
+		"name" : "6.8x43",
+		"tier" : "B",
+		"rarity" : "A",
+		"subtypes" : {
+			"6.8x43 SST" : {
+				"img" : "img/68x43_sst.png"
+			},
+			"6.8x43 FMJ" : {
+				"img" : "img/68x43_fmj.png"
+			}
+		}
+	},
+	"556x45" : {
+		"name" : "5.56x45",
+		"tier" : "C",
+		"rarity" : "C",
+		"subtypes" : {
+			"5.56x45 M995" : {
+				"img" : "img/556x45_m995.png"
+			},
+			"5.56x45 SS109" : {
+				"img" : "img/556x45_ss109.png"
+			}
+		}
+	},
+	"545x39" : {
+		"name" : "5.45x39",
+		"tier" : "C",
+		"rarity" : "D",
+		"subtypes" : {
+			"5.45x39 BP" : {
+				"img" : "img/545x39_bp.png"
+			},
+			"5.45x39 PP" : {
+				"img" : "img/7545x39_bp.png"
+			}
+		}
+	},
+
+
+
+	"10mmauto" : {
+		"name" : "10mm Auto",
+		"tier" : "C",
+		"rarity" : "D",
+		"subtypes" : {
+			"5.45x39 BP" : {
+				"img" : "img/545x39_bp.png"
+			},
+			"5.45x39 PP" : {
+				"img" : "img/7545x39_bp.png"
+			}
+		}
+	},
+
 }
 
-function init() {
 
+var rng_seed = 0
+
+
+function init() {
+	update_rng_seed()
+}
+
+function update_rng_seed() {
+	var seed_display = document.getElementById("seed_display")
+	var seed_input = document.getElementById("seed_input")
+	if(seed_input.value != "") {
+		rng_seed = seed_input.value
+	} else {
+		rng_seed = randi(420691337)
+  		seed_input.value = rng_seed
+	}
+	seed_display.textContent = rng_seed
+	Math.seedrandom(rng_seed)
+}
+
+function randomize_seed() {
+	seed_input.value = ""
+	update_rng_seed()
 }
 
 function test() {
@@ -57,7 +232,12 @@ function rand_item(dict) {
 </script>
 
 <body onload="init()">
-	Testing github.io pages
-	<button onclick="test()">Test</button>
+	<div>
+		RNG seed: <span id="seed_display"></span><br>
+		<button onclick="randomize_seed()">Randomize</button><input id="seed_input" type="text" maxlength="32" onchange="update_rng_seed()"/>
+	</div>
+	<div>
+		<button onclick="test()">Test</button>
+	</div>
 </body>
 </html>
