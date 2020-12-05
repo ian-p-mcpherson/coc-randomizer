@@ -168,28 +168,170 @@ ammoTypes = {
 			}
 		}
 	},
-
-
-
 	"10mmauto" : {
 		"name" : "10mm Auto",
-		"tier" : "C",
-		"rarity" : "D",
+		"tier" : "B",
+		"rarity" : "B",
 		"subtypes" : {
-			"5.45x39 BP" : {
-				"img" : "img/545x39_bp.png"
+			"10mm Auto FMJ" : {
+				"img" : "img/10mmauto_fmj.png"
 			},
-			"5.45x39 PP" : {
-				"img" : "img/7545x39_bp.png"
+			"10mm Auto JHP" : {
+				"img" : "img/10mmauto_jhp.png"
 			}
 		}
 	},
-
+	"40S&W" : {
+		"name" : ".40 S&W",
+		"tier" : "C",
+		"rarity" : "C",
+		"subtypes" : {
+			".40 S&W FMJ" : {
+				"img" : "img/40s&w_fmj.png"
+			},
+			".40 S&W FMJ" : {
+				"img" : "img/40s&w_jhp.png"
+			}
+		}
+	},
+	"127x55" : {
+		"name" : "12.7x55",
+		"tier" : "S",
+		"rarity" : "S",
+		"subtypes" : {
+			"12.7x55 STs-130" : {
+				"img" : "img/127x55.png"
+			},
+		}
+	},
+	"762x54lmg" : {
+		"name" : "7.62x54 (LMG)",
+		"tier" : "S",
+		"rarity" : "A",
+		"subtypes" : {
+			"7.62x54 PP" : {
+				"img" : "img/762x54_pp.png"
+			},
+		}
+	},
+	"m134" : {
+		"name" : "M134",
+		"tier" : "S",
+		"rarity" : "S",
+		"subtypes" : {
+			"M134 Belt" : {
+				"img" : "img/m134.png"
+			},
+		}
+	},
+	"50ae" : {
+		"name" : ".50 AE",
+		"tier" : "A",
+		"rarity" : "A",
+		"subtypes" : {
+			".50 AE JHP" : {
+				"img" : "img/50ae_jhp.png"
+			},
+			".50 AE FMJ" : {
+				"img" : "img/50ae_fmj.png"
+			}
+		}
+	},
+	"357magnum" : {
+		"name" : ".357 Magnum",
+		"tier" : "A",
+		"rarity" : "B",
+		"subtypes" : {
+			".357 Magnum JHP" : {
+				"img" : "img/357magnum_jhp.png"
+			},
+			".357 Magnum FMJ" : {
+				"img" : "img/357magnum_fmj.png"
+			}
+		}
+	},
+	"45acp" : {
+		"name" : ".45 ACP",
+		"tier" : "B",
+		"rarity" : "D",
+		"subtypes" : {
+			".45 ACP" : {
+				"img" : "img/45acp.png"
+			},
+			".45 ACP Hydrashock" : {
+				"img" : "img/45acp_hydrashock.png"
+			}
+		}
+	},
+	"762x25" : {
+		"name" : "7.62x25",
+		"tier" : "E",
+		"rarity" : "C",
+		"subtypes" : {
+			"7.62x25 PS" : {
+				"img" : "img/762x25_ps.png"
+			},
+			"7.62x25 HP" : {
+				"img" : "img/762x25_hp.png"
+			}
+		}
+	},
+	"57x28" : {
+		"name" : "5.7x28",
+		"tier" : "F",
+		"rarity" : "C",
+		"subtypes" : {
+			"5.7x28 SS190" : {
+				"img" : "img/57x28_ss190.png"
+			},
+			"5.7x28 SS192" : {
+				"img" : "img/57x28_ss192.png"
+			}
+		}
+	},
+	"46x30" : {
+		"name" : "4.6x30",
+		"tier" : "F",
+		"rarity" : "A",
+		"subtypes" : {
+			"4.6x30 DM11" : {
+				"img" : "img/46x30_dm11.png"
+			},
+			"4.6x30 FMJ" : {
+				"img" : "img/46x30_fmj.png"
+			}
+		}
+	},
+	"9x19" : {
+		"name" : "9x19",
+		"tier" : "D",
+		"rarity" : "F",
+		"subtypes" : {
+			"9x19 JHP" : {
+				"img" : "img/9x19_jhp.png"
+			},
+			"9x19 FMJ" : {
+				"img" : "img/9x19_fmj.png"
+			}
+		}
+	},
+	"9x18" : {
+		"name" : "9x18",
+		"tier" : "F",
+		"rarity" : "F",
+		"subtypes" : {
+			"9x18 SP-7" : {
+				"img" : "img/9x18_sp7.png"
+			},
+			"9x18 FMJ" : {
+				"img" : "img/9x18_fmj.png"
+			}
+		}
+	},
 }
 
 
 var rng_seed = 0
-
 
 function init() {
 	update_rng_seed()
