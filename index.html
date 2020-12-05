@@ -9,7 +9,55 @@
 	<meta name="author" content="ian-p-mcpherson@gmail.com">
 </head>
 
-<body>
+<script>
+
+ammoTypes = {
+	"slug" : {
+		"name" : "Slug",
+		"tier" : "E",
+		"rarity" : "E",
+		"subtypes" : {
+			"12x76 Slug" : {
+				"img" : "img/12x76_slug.png"
+			}
+		}
+	},
+	"buckshot" : {
+		"name" : "Buckshot",
+		"tier" : "C",
+		"rarity" : "E",
+		"subtypes" : {
+			"12x70 Buckshot" : {
+				"img" : "img/12x70_Buckshot.png"
+			}
+		}
+	},
+}
+
+function init() {
+
+}
+
+function test() {
+	var ritem = rand_item(ammoTypes)
+	alert(ritem["name"])
+}
+
+// Returns a number from min to max (inclusive)
+function randi(max, min = 0) {
+	return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+// Returns a random item from a dict
+function rand_item(dict) {
+	var keys = Object.keys(dict)
+	return dict[keys[randi(keys.length - 1)]]
+}
+
+</script>
+
+<body onload="init()">
 	Testing github.io pages
+	<button onclick="test()">Test</button>
 </body>
 </html>
